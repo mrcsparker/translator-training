@@ -18,7 +18,7 @@ as_table <- function(c) {
 
 as_csv <- function(c) {
   c %>%
-    write.table(file = "output.csv",
+    write.table(file = "ndxl.csv",
                 row.names = F,
                 sep = ',',
                 col.names = headers())
