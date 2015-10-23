@@ -38,15 +38,14 @@ read_stdin <- function() {
 }
 
 main <- function() {
-  #data <- read_stdin() %>% read_html()
-
   data <- read_stdin()
 
   data %>%
     read_html() %>%
     html_table(header = TRUE) %>%
     data.frame() %>%
-    tbl_df() %>% as_output()
+    tbl_df() %>%
+    as_output()
 }
 
 main()
