@@ -1,5 +1,5 @@
 drake.log
-build
+build/*
 .RData
 .Rhistory
 .drake
