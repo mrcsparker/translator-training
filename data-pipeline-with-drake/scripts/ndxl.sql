@@ -1,5 +1,5 @@
 CREATE TABLE ndxl(
-  incident_date DATE, 
+  incident_date DATE,
   city varchar,
   state varchar,
   shape varchar,
@@ -8,6 +8,6 @@ CREATE TABLE ndxl(
   posted varchar
 );
 
--- .separator ",";
+.separator ,
 
--- .import ndxl.csv ndxl;
+.import "build/ndxl.csv" ndxl

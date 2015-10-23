@@ -1,8 +1,8 @@
 build/ndxl.tidy.html <- data/ndxl.html
-  cat $INPUT | tidy -i -c -w 0 > $OUTPUT
+  (cat $INPUT | tidy -i -c -w 0 -ashtml -f build/ndxl.tidy-errors -o $OUTPUT || true)
 
 build/ndxl.csv <- build/ndxl.tidy.html
   cat $INPUT | Rscript scripts/ndxl-to-csv.R > $OUTPUT
 
 build/ndxl.sqlite3 <- scripts/ndxl.sql, build/ndxl.csv
-  cat $INPUT0 | sqlite3 $OUTPUT 
+  sqlite3 $OUTPUT < $INPUT0
