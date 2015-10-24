@@ -2,6 +2,7 @@ build/ndxl.tidy.html <- data/ndxl.html
   (cat $INPUT | tidy -i -c -w 0 -ashtml -f build/ndxl.tidy-errors -o $OUTPUT || true)
 
 build/ndxl.csv <- build/ndxl.tidy.html
+  Rscript scripts/install-packages.R
   cat $INPUT | Rscript scripts/ndxl-to-csv.R > $OUTPUT
 
 build/ndxl.sqlite3 <- scripts/ndxl.sql, build/ndxl.csv
