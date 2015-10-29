@@ -1,32 +1,18 @@
 class Rating < ActiveRecord::Base
   def self.load(csv_file)
 
-    ratings = []
+    ActiveRecord::Base.connection.execute('truncate table ratings')
 
-    CSV.foreach(csv_file, headers: true) do |csv|
-      rating = Rating.where(user_id: csv['userId'],
-                            movie_id: csv['movieId'],
-                            rating: csv['rating'],
-                            timestamp: csv['timestamp']).first
-      unless rating
-        rating = Rating.new(user_id: csv['userId'],
-                            movie_id: csv['movieId'],
-                            rating: csv['rating'],
-                            timestamp: csv['timestamp'])
-        ratings << rating
-      end
+    sql = []
+    sql << "LOAD DATA infile '#{File.expand_path(csv_file)}'"
+    sql << "INTO TABLE ratings"
+    sql << "FIELDS TERMINATED BY ',' ENCLOSED BY '\"'"
+    sql << "LINES TERMINATED BY '\\r\\n'"
+    sql << "IGNORE 1 LINES"
+    sql << "(user_id, movie_id, rating, timestamp)"
 
-      if ratings.size == 25000
-        puts "Saving ratings"
-        ActiveRecord::Base.transaction do
-          ratings.map(&:save)
-        end
-        ratings = []
-      end
-    end
+    puts sql.join(' ')
 
-    ActiveRecord::Base.transaction do
-      ratings.map(&:save)
-    end if ratings.size > 0
+    ActiveRecord::Base.connection.execute(sql.join(' '))
   end
 end

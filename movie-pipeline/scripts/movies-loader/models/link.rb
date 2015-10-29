@@ -1,29 +1,16 @@
 class Link < ActiveRecord::Base
   def self.load(csv_file)
 
-    links = []
+    ActiveRecord::Base.connection.execute('truncate table links')
 
-    CSV.foreach(csv_file, headers: true) do |csv|
-      link = Link.where(movie_id: csv['movieId'],
-                        imdb_id: csv['imdbId'],
-                        tmdb_id: csv['tmdbId']).first
-      unless link
-        link = Link.new(movie_id: csv['movieId'],
-                        imdb_id: csv['imdbId'],
-                        tmdb_id: csv['tmdbId'])
-        links << link
-      end
+    sql = []
+    sql << "LOAD DATA infile '#{File.expand_path(csv_file)}'"
+    sql << "INTO TABLE links"
+    sql << "FIELDS TERMINATED BY ',' ENCLOSED BY '\"'"
+    sql << "LINES TERMINATED BY '\\r\\n'"
+    sql << "IGNORE 1 LINES"
+    sql << "(movie_id, imdb_id, tmdb_id)"
 
-      if links.size == 5000
-        ActiveRecord::Base.transaction do
-          links.map(&:save)
-        end
-        links = []
-      end
-    end
-
-    ActiveRecord::Base.transaction do
-      links.map(&:save)
-    end if links.size > 0
+    ActiveRecord::Base.connection.execute(sql.join(' '))
   end
 end

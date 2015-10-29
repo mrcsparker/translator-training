@@ -19,7 +19,7 @@ class MoviesLoader
     Movie.load("#{@csv_location}/movies.csv")
     Link.load("#{@csv_location}/links.csv")
     Rating.load("#{@csv_location}/ratings.csv")
-    Tag.load("#{@csv_location}/tags.csv")
+    Tag.load("#{@csv_location}/tags.fixed.csv")
   end
 
   private
@@ -32,7 +32,7 @@ class MoviesLoader
   end
 
   def csv_files
-    [ 'links.csv', 'movies.csv', 'ratings.csv', 'tags.csv' ]
+    [ 'links.csv', 'movies.csv', 'ratings.csv', 'tags.fixed.csv' ]
   end
 end
 
