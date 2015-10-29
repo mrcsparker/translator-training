@@ -1,0 +1,18 @@
+build/movies-sql.log <- scripts/movies.sql
+  mysql -u root < $INPUT > $OUTPUT
+
+build/ml-latest.zip <- build/movies-sql.log
+  wget -nc http://files.grouplens.org/datasets/movielens/ml-latest.zip -O $OUTPUT || true
+
+build/ml-latest <- build/ml-latest.zip
+  unzip -n $INPUT -d build
+
+build/ruby-output.log <- build/ml-latest
+  cd scripts/movies-loader/ && bundle install && cd ../..
+  cd scripts/movies-loader/ && bundle exec ruby movies-loader.rb ../../build/ml-latest > $OUTPUT && cd ../..
+
+build/movies.dump.sql <- build/ruby-output.log
+  mysqldump -u root movies > $OUTPUT
+
+build/movies.dump.sql.gz <- build/movies.dump.sql
+  gzip $INPUT -c > $OUTPUT
