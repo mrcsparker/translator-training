@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `movie_genres` (
 CREATE TABLE IF NOT EXISTS `movies` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL DEFAULT '',
+  `year` int(11) unsigned,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
