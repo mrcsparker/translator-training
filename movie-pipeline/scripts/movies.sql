@@ -57,10 +57,3 @@ CREATE TABLE IF NOT EXISTS `tags` (
   KEY `tags_tag` (`tag`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `services` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `json` longtext,
-  PRIMARY KEY (`id`),
-  KEY `services_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;

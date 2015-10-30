@@ -19,7 +19,10 @@ defmodule Jsonserve.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Jsonserve do
-  #   pipe_through :api
-  # end
+  scope "/api", Jsonserve do
+    pipe_through :api
+
+    resources "/services", ServiceController
+
+  end
 end

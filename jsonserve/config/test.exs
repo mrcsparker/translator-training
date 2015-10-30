@@ -11,8 +11,8 @@ config :logger, level: :warn
 
 # Configure your database
 config :jsonserve, Jsonserve.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "jsonserve_test",
+  adapter: Ecto.Adapters.MySQL,
+  username: "root",
+  password: "",
+  database: "movies_test",
   pool: Ecto.Adapters.SQL.Sandbox

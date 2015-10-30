@@ -18,7 +18,7 @@ defmodule Jsonserve.Mixfile do
   def application do
     [mod: {Jsonserve, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :mariaex]]
   end
 
   # Specifies which paths to compile per environment
@@ -31,7 +31,7 @@ defmodule Jsonserve.Mixfile do
   defp deps do
     [{:phoenix, "~> 0.15"},
      {:phoenix_ecto, "~> 0.8"},
-     {:postgrex, ">= 0.0.0"},
+     {:mariaex, ">= 0.0.0"},
      {:phoenix_html, "~> 1.4"},
      {:phoenix_live_reload, "~> 0.5", only: :dev},
      {:cowboy, "~> 1.0"}]

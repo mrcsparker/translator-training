@@ -28,8 +28,8 @@ config :logger, :console, format: "[$level] $message\n"
 
 # Configure your database
 config :jsonserve, Jsonserve.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "jsonserve_dev",
-  size: 10 # The amount of database connections in the pool
+  adapter: Ecto.Adapters.MySQL,
+  username: "root",
+  password: "",
+  database: "movies_dev",
+  pool_size: 10 # The amount of database connections in the pool
