@@ -17,3 +17,6 @@ build/movies.dump.sql <- build/ruby-output.log
 
 build/movies.dump.sql.gz <- build/movies.dump.sql
   gzip $INPUT -c > $OUTPUT
+
+build/schema-spy <- build/movies.dump.sql.gz
+  java -jar scripts/schemaSpy_5.0.0.jar -t mysql -host localhost -db movies -u root -o $OUTPUT -dp scripts/mysql-connector-java-5.1.37-bin.jar

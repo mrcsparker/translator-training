@@ -25,7 +25,7 @@ class Movie < ActiveRecord::Base
       unless movie
         movie = Movie.new
         movie.id = csv['movieId'].to_i
-        movie.title = csv['title']
+        movie.title = csv['title'].strip
         movie.save!
         puts movie.title
       end

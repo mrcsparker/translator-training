@@ -46,11 +46,14 @@ def main
   return usage if ARGV.size == 0
 
   begin
+    ActiveRecord::Base.connection.execute('SET foreign_key_checks = 0')
     movies_loader = MoviesLoader.new(ARGV[0])
     movies_loader.run
   rescue => e
     p e
     return 255
+  ensure
+    ActiveRecord::Base.connection.execute('SET foreign_key_checks = 1')
   end
   return 0
 end
