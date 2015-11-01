@@ -11,7 +11,8 @@ import (
 
 type Service struct {
 	Id        int64     `json:"id"`
-	Name      string    `sql:"size:1024" json:"name"`
+  ChartType string    `sql:"size:50" json:"chart_type"`
+  Name      string    `sql:"size:1024" json:"name"`
 	Json      string    `sql:"size:1..5000" json:"json"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
