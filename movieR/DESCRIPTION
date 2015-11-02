@@ -1,17 +1,20 @@
 Package: movieR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Movie query package
 Version: 0.1
 Date: 2015-10-31
 Author: Chris Parker
 Maintainer: Chris Parker <mrcsparker@gmail.com>
-Description: More about what it does (maybe more than one line)
+Description: Movie query package.
 License: MIT
 LazyData: TRUE
-Depends: dplyr, jsonlite
 Imports:
   dplyr (>= 0.4.3),
   R6 (>= 2.1.1),
-  RMySQL,
+  jsonlite,
+  devtools,
   DBI,
-  jsonlite
+  RMySQL
+Remotes:
+  github::rstats-db/DBI,
+  github::rstats-db/RMySQL

@@ -1,1 +1,6 @@
+import(devtools)
+import(dplyr)
+import(jsonlite)
+import(DBI)
+import(RMySQL)
 exportPattern("^[[:alpha:]]+")
