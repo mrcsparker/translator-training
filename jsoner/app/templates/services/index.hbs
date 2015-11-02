@@ -1,0 +1,22 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Chart type</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each model as |service|}}
+    <tr>
+      <td>
+        {{#link-to 'services.show' service}}
+          <span class="label label-default">{{service.id}}</span>
+        {{/link-to}}
+      </td>
+      <td>{{service.name}}</td>
+      <td>{{service.chartType}}</td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

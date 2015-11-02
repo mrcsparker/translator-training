@@ -11,7 +11,7 @@ import (
 
 type Service struct {
 	Id        int64     `json:"id"`
-	ChartType string    `sql:"size:50" json:"chart_type"`
+	ChartType string    `sql:"size:50" json:"chartType"`
 	Name      string    `sql:"size:1024" json:"name"`
 	Json      string    `sql:"size:1..5000" json:"json"`
 	CreatedAt time.Time `json:"createdAt"`
@@ -20,6 +20,10 @@ type Service struct {
 
 type ServiceWrapper struct {
 	Service Service `json:"service"`
+}
+
+type ServicesWrapper struct {
+	Services []Service `json:"services"`
 }
 
 type Impl struct {
@@ -43,7 +47,7 @@ func (i *Impl) GetAllServices(w rest.ResponseWriter, r *rest.Request) {
 	services := []Service{}
 	i.DB.Find(&services)
 
-	w.WriteJson(&services)
+	w.WriteJson(&ServicesWrapper{Services: services})
 }
 
 func (i *Impl) GetService(w rest.ResponseWriter, r *rest.Request) {
@@ -53,7 +57,7 @@ func (i *Impl) GetService(w rest.ResponseWriter, r *rest.Request) {
 		rest.NotFound(w, r)
 		return
 	}
-	w.WriteJson(&service)
+	w.WriteJson(&ServiceWrapper{Service: service})
 }
 
 func (i *Impl) PostService(w rest.ResponseWriter, r *rest.Request) {
@@ -128,6 +132,10 @@ func main() {
 	})
 	router, err := rest.MakeRouter(
 		rest.Get("/services", i.GetAllServices),
+		rest.Post("/services", i.PostService),
+		rest.Get("/services/:id", i.GetService),
+		rest.Put("/services/:id", i.PutService),
+		rest.Delete("/services/:id", i.DeleteService),
 	)
 	if err != nil {
 		log.Fatal(err)

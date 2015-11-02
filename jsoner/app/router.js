@@ -7,7 +7,7 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.resource('services', function() {
-    this.route('show', { path: '/services/:service_id' });
+    this.route('show', { path: ':service_id' });
   });
 });
 
