@@ -15,6 +15,3 @@ Imports:
   devtools,
   DBI,
   RMySQL
-Remotes:
-  github::rstats-db/DBI,
-  github::rstats-db/RMySQL

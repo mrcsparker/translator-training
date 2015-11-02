@@ -11,11 +11,15 @@ import (
 
 type Service struct {
 	Id        int64     `json:"id"`
-  ChartType string    `sql:"size:50" json:"chart_type"`
-  Name      string    `sql:"size:1024" json:"name"`
+	ChartType string    `sql:"size:50" json:"chart_type"`
+	Name      string    `sql:"size:1024" json:"name"`
 	Json      string    `sql:"size:1..5000" json:"json"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
+}
+
+type ServiceWrapper struct {
+	Service Service `json:"service"`
 }
 
 type Impl struct {
@@ -38,6 +42,7 @@ func (i *Impl) InitSchema() {
 func (i *Impl) GetAllServices(w rest.ResponseWriter, r *rest.Request) {
 	services := []Service{}
 	i.DB.Find(&services)
+
 	w.WriteJson(&services)
 }
 
@@ -110,6 +115,17 @@ func main() {
 
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
+	api.Use(&rest.CorsMiddleware{
+		RejectNonCorsRequests: false,
+		OriginValidator: func(origin string, request *rest.Request) bool {
+			return true
+		},
+		AllowedMethods: []string{"GET", "POST", "PUT"},
+		AllowedHeaders: []string{
+			"Accept", "Content-Type", "X-Custom-Header", "Origin"},
+		AccessControlAllowCredentials: true,
+		AccessControlMaxAge:           3600,
+	})
 	router, err := rest.MakeRouter(
 		rest.Get("/services", i.GetAllServices),
 	)
