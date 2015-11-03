@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'jsoner',
+    modulePrefix: 'json-client',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
