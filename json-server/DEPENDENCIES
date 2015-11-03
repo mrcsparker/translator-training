@@ -1,0 +1,3 @@
+github.com/ant0ine/go-json-rest/rest
+github.com/jinzhu/gorm
+github.com/go-sql-driver/mysql
