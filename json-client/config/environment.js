@@ -20,6 +20,7 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      API_HOST: "http://localhost:8080"
     }
   };
 
@@ -44,7 +45,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.APP.API_HOST = "http://52.24.37.88/json-server/";
   }
 
   return ENV;

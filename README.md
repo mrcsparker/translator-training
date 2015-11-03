@@ -79,6 +79,10 @@ wget http://download2.rstudio.org/rstudio-server-0.99.467-amd64.deb
 gdebi -n rstudio-server-0.99.467-amd64.deb
 ```
 
+for each user:
+
+`mkdir -p ~/R/x86_64-pc-linux-gnu-library/3.2`
+
 ### MySQL
 
 ```
@@ -162,7 +166,7 @@ echo "create database if not exists movies" | mysql -u root
 
 ```
         location /json-server/ {
-                rewrite ^/rstudio/(.*)$ /$1 break;
+                rewrite ^/json-server/(.*)$ /$1 break;
                 proxy_pass http://localhost:8080;
                 proxy_redirect http://localhost:8080/ $scheme://$host/json-server/;
                 proxy_http_version 1.1;
