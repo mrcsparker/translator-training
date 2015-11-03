@@ -48,47 +48,79 @@ DB <- R6Class("R6",
       movies %>% inner_join(ratings, by = c("id" = "movie_id"))
     },
 
-    insertChart = function(chartName, chartType, chartJson) {
+    moviesByGenreAndYear = function(genreName, year) {
+      query <- paste("SELECT movies.*, ",
+                     "genres.name as genre_name ",
+                     "FROM movies ",
+                     "INNER JOIN movie_genres ON movie_genres.movie_id = movies.id ",
+                     "INNER JOIN genres ON genres.id = movie_genres.genre_id ",
+                     "WHERE year = ", year, " ",
+                     "AND genres.name LIKE '%", genreName, "%'",
+                     sep = "")
+      self$sendQuery(query)
+    },
+
+    ratingsByMovieId = function(movieId) {
+      self$conn %>%
+        tbl("ratings") %>%
+        filter(movie_id == movieId)
+    },
+
+    insertChart = function(chartName, chartJson) {
 
       # PreparedStatements are not available in
       # the current stable version of RMySQL, so
       # we have to concatenate strings
       query <-
         paste("INSERT INTO services ( ",
-              "name, chart_type, json ",
+              "name, json ",
               ") VALUES ( ",
               "'", chartName, "',",
-              "'", chartType, "', ",
               "'", chartJson, "'",
               ")", sep = "")
 
       self$conn$con %>% dbSendQuery(query)
     },
 
-    updateChart = function(chartName, chartType, chartJson) {
-
+    updateChart = function(chartName, chartJson) {
       query <-
         paste("UPDATE services ",
               "SET name = '", chartName, "', ",
-              "chart_type = '", chartType, "', ",
               "json = '", chartJson, "' ",
-              "WHERE name = '", chartName, "' AND chart_type = '", chartType, "'", sep = "")
+              "WHERE name = '", chartName, "'", sep = "")
 
       self$conn$con %>% dbSendQuery(query)
     },
 
-    saveChart = function(chartName, chartType, chartJson) {
+    saveChart = function(chartName, chartJson) {
       services <- self$conn %>% tbl("services") %>%
-        filter(name == chartName, chart_type == chartType) %>%
+        filter(name == chartName) %>%
         summarize(count = n()) %>%
         collect()
 
       if (services$count == 0) {
-        self$insertChart(chartName, chartType, chartJson)
+        self$insertChart(chartName, chartJson)
       } else {
-        self$updateChart(chartName, chartType, chartJson)
+        self$updateChart(chartName, chartJson)
       }
-
     }
   )
 )
+
+doRatingsForHorror <- function() {
+  results <- list()
+
+  db <- DB$new()
+  movies <- db$moviesByGenreAndYear("Mystery", "2015") %>% head(5) %>% collect()
+  for (i in 1:nrow(movies)) {
+    movie <- movies[i,]
+
+    results[movie$title] = db$ratingsByMovieId(movie$id) %>% select(rating) %>% collect()
+  }
+
+  json <- results %>% toJSON()
+
+  db$saveChart("mrcsparker1", gsub("'", "", json))
+
+  json
+}

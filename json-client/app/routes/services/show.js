@@ -9,10 +9,17 @@ export default Ember.Route.extend({
     }
   },
 
-  columns: function() {
+  columns: function(model) {
+    var json = JSON.parse(model.get('json'));
+    var a = Object.keys(json).map(function(x) {
+      var newJson = json[x];
+      newJson.unshift(x);
+      return newJson;
+    })
+    return a;
     return [
-      ['data1', 30, 200, 100, 400, 150, 250],
-      ['data2', 130, 100, 140, 200, 150, 50]
+      ['2012', 10, 20],
+      ['2013', 100, 200]
     ]
   },
   model: function(params) {
@@ -20,10 +27,7 @@ export default Ember.Route.extend({
   },
   setupController: function(controller, model) {
 
-    var columns = this.columns();
-
-    console.log(this.generateChart("bar", columns));
-
+    var columns = this.columns(model);
     controller.set('model', model);
     controller.set('data_bar', this.generateChart("bar", columns));
     controller.set('data_line', this.generateChart("line", columns));
