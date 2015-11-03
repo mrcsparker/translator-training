@@ -1,4 +1,9 @@
 body {
-  padding-top: 50px;
+  padding-top: 55px;
 }
 
+div .json {
+  background: #f5f2f0;
+  height: 150px;
+  overflow: scroll;
+}

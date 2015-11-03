@@ -4,6 +4,13 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
+
+    'ember-prism': {
+      'theme': '',
+      'components': ['scss', 'javascript'], //needs to be an array, or undefined.
+      'plugins': ['line-highlight']
+    },
+    'ember-cli-bootswatch': 'sandstone'
   });
 
   // Use `app.import` to add additional libraries to the generated

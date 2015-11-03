@@ -34,7 +34,11 @@ DB <- R6Class("R6",
     },
 
     moviesByYear = function() {
-      self$conn %>% tbl("movies") %>% filter(year > 2010) %>% group_by(year) %>% summarize(count = n())
+      self$conn %>%
+        tbl("movies") %>%
+        filter(year > 2010) %>%
+        group_by(year) %>%
+        summarize(count = n())
     },
 
     moviesWithRatings = function() {
@@ -45,27 +49,32 @@ DB <- R6Class("R6",
     },
 
     insertChart = function(chartName, chartType, chartJson) {
-      self$conn$con %>%
-        dbSendQuery(paste("INSERT INTO services ( ",
-                          "name, chart_type, json ",
-                          ") VALUES ( ",
-                          ":name, :chartType, :json ",
-                          ")"),
-                    params = list(name = chartName,
-                                  chartType = chartType,
-                                  json = chartJson))
+
+      # PreparedStatements are not available in
+      # the current stable version of RMySQL, so
+      # we have to concatenate strings
+      query <-
+        paste("INSERT INTO services ( ",
+              "name, chart_type, json ",
+              ") VALUES ( ",
+              "'", chartName, "',",
+              "'", chartType, "', ",
+              "'", chartJson, "'",
+              ")", sep = "")
+
+      self$conn$con %>% dbSendQuery(query)
     },
 
     updateChart = function(chartName, chartType, chartJson) {
-      self$conn$con %>%
-        dbSendQuery(paste("UPDATE services ",
-                          "SET name = :name, ",
-                          "chart_type = :chartType, ",
-                          "json = :json ",
-                          "WHERE name = :name AND chart_type = :chartType"),
-                    params = list(name = chartName,
-                                  chartType = chartType,
-                                  json = chartJson))
+
+      query <-
+        paste("UPDATE services ",
+              "SET name = '", chartName, "', ",
+              "chart_type = '", chartType, "', ",
+              "json = '", chartJson, "' ",
+              "WHERE name = '", chartName, "' AND chart_type = '", chartType, "'", sep = "")
+
+      self$conn$con %>% dbSendQuery(query)
     },
 
     saveChart = function(chartName, chartType, chartJson) {
