@@ -91,4 +91,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision :file, source: "vagrant/files/nginx/nginx-movies-pipeline.conf", destination: "/tmp/nginx-movies-pipeline.conf"
   config.vm.provision :shell, path: "vagrant/nginx.sh"
 
+  # java setup
+  config.vm.provision :shell, path: "vagrant/java.sh"
+
 end
