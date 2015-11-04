@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ ! -f /tmp/provision.golang ]; then
+if [ ! -f /opt/provision/golang ]; then
 
   mv /tmp/golang.sh /etc/profile.d/
   chmod +x /etc/profile.d/golang.sh
@@ -11,5 +11,5 @@ if [ ! -f /tmp/provision.golang ]; then
     tar -C /opt/ -xzf go1.5.1.linux-amd64.tar.gz
   fi
 
-  touch /tmp/provision.golang
+  touch /opt/provision/golang
 fi

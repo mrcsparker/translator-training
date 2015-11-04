@@ -1,5 +1,5 @@
 # Install:
-#   `R -f install-r-packages.R`
+#   `R -f r-install-packages.R`
 
 # basic development packages
 install.packages("devtools")
@@ -15,5 +15,4 @@ install.packages("tidyr")
 install.packages("plyr")
 install.packages("stringr")
 install.packages("ggplot2")
-
 

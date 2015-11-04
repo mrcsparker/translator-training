@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-if [ ! -f /tmp/provision.base ]; then
+mkdir -p /opt/provision
+
+if [ ! -f /opt/provision/base ]; then
 
   apt-get update
 
@@ -12,5 +14,5 @@ if [ ! -f /tmp/provision.base ]; then
   apt-get install -y libcurl4-gnutls-dev
   apt-get install -y git
 
-  touch /tmp/provision.base
+  touch /opt/provision/base
 fi

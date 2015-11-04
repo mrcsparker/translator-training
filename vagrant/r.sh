@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ ! -f /tmp/provision.r ]; then
+if [ ! -f /opt/provision/r ]; then
 
   mv /tmp/r.list /etc/apt/sources.list.d/r.list
   mv /tmp/Rprofile.site /etc/R/Rprofile.site
@@ -16,5 +16,7 @@ if [ ! -f /tmp/provision.r ]; then
     gdebi -n rstudio-server-0.99.467-amd64.deb
   fi
 
-  touch /tmp/provision.r
+  R -f /tmp/r-install-packages.R
+
+  touch /opt/provision/r
 fi
