@@ -79,4 +79,11 @@ Vagrant.configure(2) do |config|
 
   # MySQL setup
   config.vm.provision :shell, path: "vagrant/mysql.sh"
+
+  # golang setup
+  config.vm.provision :file, source: "vagrant/files/golang/golang.sh", destination: "/tmp/golang.sh"
+  config.vm.provision :shell, path: "vagrant/golang.sh"
+
+  # nginx setup
+  config.vm.provision :shell, path: "vagrant/nginx.sh"
 end
