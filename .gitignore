@@ -3,3 +3,4 @@
 .RData
 deploy.sh
 *.pem
+.vagrant

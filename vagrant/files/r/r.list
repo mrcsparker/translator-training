@@ -1,0 +1,4 @@
+# R packages
+# /etc/apt/sources.list.d/r.list
+
+deb http://cran.cnr.Berkeley.edu/bin/linux/ubuntu trusty/
