@@ -97,4 +97,17 @@ Vagrant.configure(2) do |config|
   # create users
   config.vm.provision :shell, path: "vagrant/useradd.sh"
 
+  # create main appuser
+  config.vm.provision :file, source: "vagrant/files/appuser/bashrc", destination: "/tmp/bashrc-appuser"
+  config.vm.provision :file, source: "vagrant/files/appuser/profile", destination: "/tmp/profile-appuser"
+  config.vm.provision :shell, path: "vagrant/appuser.sh"
+
+  # drake setup
+  config.vm.provision :shell, path: "vagrant/drake.sh"
+
+  # rvm setup
+  config.vm.provision :shell, path: "vagrant/rvm.sh", args: "stable"
+
+  # ruby setup
+  config.vm.provision :shell, path: "vagrant/ruby.sh", args: "2.2.3"
 end
