@@ -94,4 +94,7 @@ Vagrant.configure(2) do |config|
   # java setup
   config.vm.provision :shell, path: "vagrant/java.sh"
 
+  # create users
+  config.vm.provision :shell, path: "vagrant/useradd.sh"
+
 end
