@@ -2,19 +2,8 @@
 
 if [ ! -f /opt/provision/ruby ]; then
 
-  su - appuser
+  rvm install 2.2.3
+  rvm  --default use 2.2.3
 
-  source $HOME/.rvm/scripts/rvm
-
-  rvm use --default --install $1
-
-  shift
-
-  if (( $# )); then
-    gem install $@
-  fi
-
-  rvm cleanup all
-
-  touch /opt/provision/appuser
+  touch /opt/provision/ruby
 fi

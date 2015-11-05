@@ -51,6 +51,7 @@ Vagrant.configure(2) do |config|
     vb.memory = "2048"
     vb.cpus = 2
   end
+
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -109,5 +110,5 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, path: "vagrant/rvm.sh", args: "stable"
 
   # ruby setup
-  config.vm.provision :shell, path: "vagrant/ruby.sh", args: "2.2.3"
+  config.vm.provision :shell, path: "vagrant/ruby.sh"
 end
