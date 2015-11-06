@@ -45,7 +45,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.API_HOST = "http://52.24.37.88/json-server/";
+    ENV.baseURL = '/json-client';
+    ENV.APP.API_HOST = "http://52.32.170.38/json-server/";
   }
 
   return ENV;

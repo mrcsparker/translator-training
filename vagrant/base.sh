@@ -31,6 +31,7 @@ if [ ! -f /opt/provision/base ]; then
   apt-get install -y libgdbm-dev
   apt-get install -y libtool
   apt-get install -y bison
+  apt-get install -y libgmp-dev
 
   touch /opt/provision/base
 fi
