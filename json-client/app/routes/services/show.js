@@ -6,21 +6,16 @@ export default Ember.Route.extend({
     return {
         columns: columns,
         type: type
-    }
+    };
   },
 
   columns: function(model) {
     var json = JSON.parse(model.get('json'));
-    var a = Object.keys(json).map(function(x) {
+    return Object.keys(json).map(function(x) {
       var newJson = json[x];
       newJson.unshift(x);
       return newJson;
-    })
-    return a;
-    return [
-      ['2012', 10, 20],
-      ['2013', 100, 200]
-    ]
+    });
   },
   model: function(params) {
     return this.store.find("service", params.service_id);
