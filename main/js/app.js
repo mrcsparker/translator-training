@@ -1,5 +1,16 @@
-function MainController() {
+function MainController($http) {
   var vm = this;
+
+  vm.csvMovies = [];
+
+  vm.showMovies = function() {
+    $http.get('./json/movies.json').success(function(response) {
+      $('#myModal').modal('show');
+      vm.csvMovies = response;
+
+      console.log(response);
+    });
+  }
 
   vm.title = "Translator Training";
 
@@ -9,10 +20,18 @@ function MainController() {
       icon: "glyphicon-hdd",
       sections: [
         {
+          name: "View file",
+          description: "",
+          icon: 'glyphicon-eye-open',
+          type: 'ng-click',
+          link: "vm.showMovies()"
+        },
+        {
           name: "Download file",
           description: "",
           icon: 'glyphicon-cloud-download',
-          link: "./foo"
+          type: 'link',
+          link: "./csv/movies.csv"
         },
         {
           name: "Upload file",
@@ -24,6 +43,7 @@ function MainController() {
           name: "Spark notebook",
           description: "",
           icon: 'glyphicon-play',
+          type: 'link',
           link: "./foo"
         }
       ]
@@ -36,6 +56,7 @@ function MainController() {
           name: 'Before & After Cleansing',
           description: '',
           icon: 'glyphicon-list-alt',
+          type: 'link',
           link: '/schema-spy'
         }
       ]
@@ -48,6 +69,7 @@ function MainController() {
           name: 'RStudio',
           description: '',
           icon: 'glyphicon-leaf',
+          type: 'link',
           link: '/rstudio'
         }
       ]
@@ -58,12 +80,16 @@ function MainController() {
       sections: [
         {
           name: 'Web Services (JSON)',
+          description: '',
           icon: 'glyphicon-cloud',
+          type: 'link',
           link: '/json-server/services'
         },
         {
           name: 'Web App (Charting)',
+          description: '',
           icon: 'glyphicon-globe',
+          type: 'link',
           link: '/json-client'
         }
       ]
