@@ -7,3 +7,7 @@ div .json {
   height: 150px;
   overflow: scroll;
 }
+
+.panel-body {
+  background-color: #eee;
+}

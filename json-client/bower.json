@@ -13,8 +13,8 @@
     "loader.js": "ember-cli/loader.js#3.2.1",
     "qunit": "~1.18.0",
     "c3": "~0.4.10",
-    "bootstrap": "^3.3.4",
     "prism": "~1.3.0",
+    "bootstrap": "^3.3.4",
     "bootswatch": "^3.3.4"
   }
 }
