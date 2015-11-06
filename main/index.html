@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app" ng-strict-di>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,59 +20,55 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body ng-controller="MainController as c">
     <div class="container">
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
       <div class="container">
-        <h1>Translator Training</h1>
+        <h1 ng-bind="c.title"</h1>
         <p></p>
       </div>
-    </div>
 
     <div class="container">
       <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-3">
-          <h2>
-            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
-            Data
-          </h2>
-          <p>View the movies database schema</p>
-          <p><a class="btn btn-default" href="/schema-spy" role="button">View schema &raquo;</a></p>
-       </div>
-       <div class="col-md-3">
-          <h2>
-            <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-            Analytics
-          </h2>
-          <p>Use R to analyse and load data for visualization</p>
-          <p><a class="btn btn-default" href="/rstudio" role="button">View RStudio &raquo;</a></p>
-       </div>
-       <div class="col-md-3">
-          <h2>
-            <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-            Integration
-          </h2>
-          <p>The JSON Server uses the data from the RStudio output to generate JSON</p>
-          <p><a class="btn btn-default" href="/json-server/services" role="button">View the JSON Server &raquo;</a></p>
-       </div>
-      <div class="col-md-3">
-          <h2>
-            <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
-            Visualization
-          </h2>
-          <p>This client connects to the JSON Server to generate visualizations</p>
-          <p><a class="btn btn-default" href="/json-client" role="button">View the JSON client &raquo;</a></p>
-       </div>
-      </div>
 
-      <hr>
+      <div class="row" ng-repeat="menuItem in c.menuItems">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4>
+                <span class="glyphicon {{menuItem.icon}}" aria-hidden="true"></span>
+                &nbsp;
+                {{menuItem.title}}
+              </h4>
+            </div>
+            <table class="table">
+              <tbody>
+                <tr ng-repeat="section in menuItem.sections">
+                  <td>
+                    <h4>
+                       <span class="glyphicon {{section.icon}}" aria-hidden="true"></span>
+                      &nbsp;
+                      {{section.name}}
+                    </h4>
+                  </td>
+                  <td>{{section.description}} &nbsp;</td>
+                  <td>
+                    <a class="btn btn-default pull-right" href="{{section.link}}">View &raquo;</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
 
