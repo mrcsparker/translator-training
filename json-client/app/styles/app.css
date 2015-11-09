@@ -25,3 +25,7 @@ div .json {
 .tick > line {
   stroke: #eee;
 }
+
+.jumbotron {
+  text-align: center;
+}
