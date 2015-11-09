@@ -9,5 +9,19 @@ div .json {
 }
 
 .panel-body {
-  background-color: #eee;
+  background-color: #3e444c;
+}
+
+.panel-heading {
+  text-align: center;
+}
+
+.c3-axis,
+.c3-legend-item {
+  fill: #eee;
+}
+
+.c3 path,
+.tick > line {
+  stroke: #eee;
 }

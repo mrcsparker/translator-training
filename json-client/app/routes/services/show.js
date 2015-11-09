@@ -29,5 +29,6 @@ export default Ember.Route.extend({
     controller.set('data_pie', this.generateChart("pie", columns));
     controller.set('data_donut', this.generateChart("donut", columns));
     controller.set('data_area', this.generateChart("area", columns));
+    controller.set('pattern', {pattern:['#90CAF9', '#A5D6A7', '#FFE082', '#FFAB91', '#F48FB1']});
   }
 });
